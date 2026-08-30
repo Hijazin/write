@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Write</title>
+<meta name="theme-color" content="#FFFFFF" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#09090B;
+    --faint:#C4C4C8;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; background:#FFFFFF; }
+  body{
+    display:flex;
+    justify-content:center;
+    padding:9vh 24px 12vh;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  textarea{
+    width:100%;
+    max-width:680px;
+    height:100%;
+    border:0;
+    outline:0;
+    resize:none;
+    background:transparent;
+    color:var(--ink);
+    caret-color:var(--ink);
+    font-family:Geist,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    font-size:21px;
+    font-weight:400;
+    line-height:1.65;
+    letter-spacing:-0.011em;
+    overflow:auto;
+    scrollbar-width:none;
+  }
+  textarea::-webkit-scrollbar{ display:none; }
+  textarea::placeholder{ color:var(--faint); }
+  textarea::selection{ background:#EDE9FE; }
+
+  @media (max-width:640px){
+    body{ padding:6vh 20px 10vh; }
+    textarea{ font-size:19px; }
+  }
+</style>
+</head>
+<body>
+  <textarea id="t" placeholder="Start writing" autofocus spellcheck="false" autocomplete="off" autocapitalize="sentences"></textarea>
+<script>
+  const t = document.getElementById('t');
+  const KEY = 'write.text';
+
+  try { t.value = localStorage.getItem(KEY) || ''; } catch (e) {}
+
+  t.addEventListener('input', () => {
+    try { localStorage.setItem(KEY, t.value); } catch (e) {}
+  });
+
+  t.focus();
+  t.setSelectionRange(t.value.length, t.value.length);
+
+  document.addEventListener('mousedown', e => {
+    if (e.target !== t) { e.preventDefault(); t.focus(); }
+  });
+</script>
+</body>
+</html>
